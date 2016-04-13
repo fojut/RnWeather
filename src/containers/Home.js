@@ -127,16 +127,15 @@ class Home extends Component{
                             />
                         ))}
                     </PickerAndroid>
-                    <ScrollView horizontal={false} >
-                        <View>
-                            <Button text="加载天气" primary={primary} theme={theme}
-                                    onPress={()=>{this.props.actions.fetchCityWeather(this.state.city.value)}} raised={true}/>
-                            <Divider />
-                            <Text>{this.renderData()}</Text>
-                        </View>
-                    </ScrollView>
+                    <Button text="加载天气" primary={primary} theme={theme}
+                            onPress={()=>{this.props.actions.fetchCityWeather(this.state.city.value)}} raised={true}/>
+                    <Divider />
                 </View>
-
+                <ScrollView horizontal={false} >
+                    <View>
+                        <Text>{this.renderData()}</Text>
+                    </View>
+                </ScrollView>
             </View>
 
         );
