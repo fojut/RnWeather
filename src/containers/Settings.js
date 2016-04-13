@@ -26,7 +26,7 @@ export default class Settings extends Component{
         return(
             <View style={styles.container}>
                 <Toolbar
-                    title='查看天气'
+                    title='设置'
                     primary={primary}
                     icon='arrow-back'
                     onIconPress={Actions.pop}
