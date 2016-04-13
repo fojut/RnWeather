@@ -58,8 +58,6 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-const DEFAULT_CITY = 'suzhou';
-
 class Home extends Component{
 
     constructor(props) {
@@ -68,7 +66,7 @@ class Home extends Component{
             fetching: false,
             response: null,
             error: null,
-            city: DEFAULT_CITY
+            city: props.cityReducer.city
         }
     }
 
@@ -98,7 +96,7 @@ class Home extends Component{
     }
 
     render(){
-        const { theme, primary } = this.props;
+        const { theme, primary } = this.props.themeReducer;
         return(
 
             <View style={styles.container} >

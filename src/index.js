@@ -16,6 +16,10 @@ import Settings from './containers/Settings'
 import TabIcon from './components/TabIcon'
 import BackIcon from './components/BackIcon'
 
+import { themeInitialState } from './reducers/themeReducer'
+import { cityInitialState } from './reducers/cityReducer'
+import { weatherInitialState } from './reducers/weatherReducer'
+
 export default (platform) => {
 
     let RnWeather = React.createClass({
@@ -27,7 +31,11 @@ export default (platform) => {
             }
 
             const initialState = {
+                themeReducer: themeInitialState,
+                cityReducer: cityInitialState,
+                weatherReducer: weatherInitialState,
             };
+
             const store = configureStore(initialState);
 
             //将dispatch和state注入到RNRF.Router

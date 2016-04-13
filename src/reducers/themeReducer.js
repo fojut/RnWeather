@@ -3,12 +3,12 @@
  */
 import { SELECT_THEME } from '../actions/themeActions'
 
-const initialState = {
+export const themeInitialState = {
     theme: 'light',
     primary: 'googleBlue'
 };
 
-export default function themeReducer(state=initialState, action){
+export default function themeReducer(state=themeInitialState, action){
     switch (action.type){
         case SELECT_THEME:
             return { ...state, theme: action.theme, primary: action.primary }

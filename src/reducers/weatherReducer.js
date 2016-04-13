@@ -5,13 +5,13 @@
 
 import { FETCHING_CITY_WEATHER, FETCH_CITY_WEATHER_SUCCESS, FETCH_CITY_WEATHER_FAILURE } from '../actions/weatherActions';
 
-const initialState = {
+export const weatherInitialState = {
     fetching: false,
     response: null,
     error: null
 };
 
-export default function weatherReducer(state=initialState, action){
+export default function weatherReducer(state=weatherInitialState, action){
     switch (action.type){
         case FETCHING_CITY_WEATHER:
             return { ...state, fetching: true }

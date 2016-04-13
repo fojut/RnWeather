@@ -1,19 +1,67 @@
 /**
  * Created by fojut on 2016/4/7.
  */
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import React, { AppRegistry, Component, Navigator, DrawerLayoutAndroid, ScrollView, View, Text, Image } from 'react-native';
 import { Card, Button, Toolbar, COLOR, TYPO } from 'react-native-material-design';
 import {Actions} from "react-native-router-flux";
+import * as themeActions from '../actions/themeActions'
 
-export default class Launch extends Component{
+/**
+ * Immutable Map
+ */
+import {Map} from 'immutable';
 
-    static defaultProps = {
-        theme: 'light',
-        primary: 'googleBlue'
+/**
+ * ## Redux boilerplate
+ */
+const actions = [
+    themeActions
+];
+
+/**
+ *  Save that state
+ */
+function mapStateToProps(state) {
+    return {
+        ...state
     };
+};
+
+/**
+ * Bind all the functions from the ```actions``` and bind them with
+ * ```dispatch```
+ */
+function mapDispatchToProps(dispatch) {
+    const creators = Map()
+        .merge(...actions)
+        .filter(value => typeof value === 'function')
+        .toObject();
+
+    return {
+        actions: bindActionCreators(creators, dispatch),
+        dispatch
+    };
+}
+
+class Launch extends Component{
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            theme: nextProps.theme,
+            primary: nextProps.primary,
+        });
+    }
+
+    changeTheme = (cTheme, cPrimary)=> {
+        let theme = cTheme === 'light'? 'dark': 'light';
+        let primary = cPrimary === 'googleBlue'? 'googleGreen': 'googleBlue';
+        this.props.actions.selectTheme(theme, primary);
+    }
 
     render(){
-        const { theme, primary } = this.props;
+        const { theme, primary } = this.props.themeReducer;
         return(
             <View {...this.props}>
                 <Toolbar
@@ -21,7 +69,8 @@ export default class Launch extends Component{
                     primary={primary}
                     icon='menu'
                     actions={[{
-                    icon: 'warning',
+                        icon: 'invert-colors',
+                        onPress: ()=>this.changeTheme(theme, primary)
                     }]}
                     rightIconStyle={{
                     margin: 10
@@ -53,3 +102,7 @@ const styles = {
     }
 };
 
+/**
+ * Connect the properties
+ */
+export default connect(mapStateToProps, mapDispatchToProps)(Launch);
