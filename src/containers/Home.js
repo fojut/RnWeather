@@ -5,7 +5,8 @@
 import { bindActionCreators } from 'redux';
 import React, {View, Text, TouchableOpacity, ScrollView, StyleSheet, Component} from "react-native";
 import {Actions, Reducer} from "react-native-router-flux";
-import { Card, Button, Subheader, Divider, RadioButtonGroup, Toolbar, COLOR, TYPO, PRIMARY_COLORS, THEME_NAME } from 'react-native-material-design';
+import { Card, Button, Subheader, Divider, Toolbar, COLOR, TYPO, PRIMARY_COLORS, THEME_NAME } from 'react-native-material-design';
+import PickerAndroid from 'react-native-picker-android';
 import { connect } from 'react-redux';
 import * as weatherActions from '../actions/weatherActions'
 import * as cityActions from '../actions/cityActions'
@@ -13,6 +14,7 @@ import * as cityActions from '../actions/cityActions'
  * Immutable Map
  */
 import {Map} from 'immutable';
+import { CITY_ITEMS } from'../constants/cityConstant'
 
 var styles = StyleSheet.create({
     container: {
@@ -58,6 +60,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
+
 class Home extends Component{
 
     constructor(props) {
@@ -97,11 +100,12 @@ class Home extends Component{
 
     render(){
         const { theme, primary } = this.props.themeReducer;
+        let PickerItem = PickerAndroid.Item;
         return(
 
             <View style={styles.container} >
                 <Toolbar
-                    title={this.state.city}
+                    title={'查看天气：'+`${this.state.city.label}`}
                     primary={primary}
                     icon='arrow-back'
                     onIconPress={Actions.pop}
@@ -111,33 +115,28 @@ class Home extends Component{
                     rightIconStyle={{
                     margin: 10
                 }} />
-                <ScrollView horizontal={false} style={styles.scene}>
-                    <View>
-                        <Subheader text="选择城市:" />
-                        <RadioButtonGroup
-                            selected={this.state.city}
-                            onSelect={(value)=>{
-                                console.log('选择了：'+value);
-                                this.props.actions.selectCity(value);
-                            }}
-                            theme={theme}
-                            primary={primary}
-                            items={[{
-                                value: 'suzhou', label: '苏州'
-                            }, {
-                                value: 'hangzhou', label: '杭州'
-                            }, {
-                                value: 'nanjing', label: '南京'
-                            }, {
-                                value: 'yangzhou', label: '扬州'
-                            }]}
-                        />
-                        <Button text="加载天气" primary={primary} theme={theme}
-                                onPress={()=>{this.props.actions.fetchCityWeather(this.state.city)}} raised={true}/>
-                        <Divider />
-                        <Text>{this.renderData()}</Text>
-                    </View>
-                </ScrollView>
+                <View tyle={styles.scene}>
+                    <PickerAndroid
+                        selectedValue={this.state.city}
+                        onValueChange={(city)=>{ this.props.actions.selectCity(city); }} >
+                        {Object.keys(CITY_ITEMS).map((item) => (
+                            <PickerItem
+                                key={item}
+                                value={CITY_ITEMS[item]}
+                                label={CITY_ITEMS[item].label}
+                            />
+                        ))}
+                    </PickerAndroid>
+                    <ScrollView horizontal={false} >
+                        <View>
+                            <Button text="加载天气" primary={primary} theme={theme}
+                                    onPress={()=>{this.props.actions.fetchCityWeather(this.state.city.value)}} raised={true}/>
+                            <Divider />
+                            <Text>{this.renderData()}</Text>
+                        </View>
+                    </ScrollView>
+                </View>
+
             </View>
 
         );

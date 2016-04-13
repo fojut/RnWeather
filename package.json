@@ -12,6 +12,7 @@
     "react": "^0.14.8",
     "react-native": "^0.23.0",
     "react-native-material-design": "^0.3.3",
+    "react-native-picker-android": "^0.3.8",
     "react-native-router-flux": "^3.2.7",
     "react-redux": "^4.4.1",
     "redux": "^3.3.1",

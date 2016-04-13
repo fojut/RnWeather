@@ -2,9 +2,10 @@
  * Created by fojut on 2016/4/12.
  */
 import { SELECT_CITY } from '../actions/cityActions'
+import { CITY_ITEMS } from'../constants/cityConstant'
 
 export const cityInitialState = {
-    city: 'suzhou'
+    city: CITY_ITEMS['suzhou']
 };
 
 export default function cityReducer(state=cityInitialState, action){
