@@ -21,11 +21,6 @@ var styles = StyleSheet.create({
 
 export default class Settings extends Component{
 
-    static defaultProps = {
-        theme: 'light',
-        primary: 'googleBlue'
-    };
-
     render(){
         const { theme, primary } = this.props;
         return(

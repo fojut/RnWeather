@@ -5,10 +5,12 @@
 import { combineReducers } from 'redux';
 import weatherReducer from './weatherReducer'
 import cityReducer from './cityReducer'
+import themeReducer from './themeReducer'
 
 const rootReducer = combineReducers({
     weatherReducer,
-    cityReducer
+    cityReducer,
+    themeReducer
 });
 
 export default rootReducer;

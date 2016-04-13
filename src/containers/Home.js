@@ -72,11 +72,6 @@ class Home extends Component{
         }
     }
 
-    static defaultProps = {
-        theme: 'light',
-        primary: 'googleBlue'
-    };
-
     componentWillReceiveProps(nextProps) {
         this.setState({
             fetching: nextProps.weatherReducer.fetching,
