@@ -115,7 +115,7 @@ class Home extends Component{
                     rightIconStyle={{
                     margin: 10
                 }} />
-                <View tyle={styles.scene}>
+                <View style={styles.scene}>
                     <PickerAndroid
                         selectedValue={this.state.city}
                         onValueChange={(city)=>{ this.props.actions.selectCity(city); }} >
@@ -131,7 +131,7 @@ class Home extends Component{
                             onPress={()=>{this.props.actions.fetchCityWeather(this.state.city.value)}} raised={true}/>
                     <Divider />
                 </View>
-                <ScrollView horizontal={false} >
+                <ScrollView horizontal={false}>
                     <View>
                         <Text>{this.renderData()}</Text>
                     </View>
